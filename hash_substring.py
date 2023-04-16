@@ -55,5 +55,5 @@ def get_occurrences( t_input,pattern, text):
     
 
 # this part launches the functions
-if name == 'main':
+if __name__ == 'main':
     print_occurrences(get_occurrences(*read_input()))
