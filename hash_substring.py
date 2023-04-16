@@ -1,6 +1,7 @@
 import os
 import sys
 
+
 def read_input():
     t_input = input().strip().upper()
     if t_input == "I":
@@ -10,8 +11,8 @@ def read_input():
         filename = 'tests/06'
         try:
             with open(filename) as file:
-                pattern = f.readline().strip()
-                text = f.readline().strip()
+                pattern = file.readline().strip()
+                text = file.readline().strip()
         except FileNotFoundError:
             print("Error: file not found")
             sys.exit(1)
