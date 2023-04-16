@@ -3,24 +3,29 @@
 import sys
 
 def read_input():
-    try:
-        # this function needs to acquire input both from keyboard and file
-        # as before, use capital i (input from keyboard) and capital f (input from file) to choose which input type will follow
-
-        input_type = input().strip()
-        if input_type == 'F':
-            filename = input().strip()
+    # read the input choice
+    choice = input().strip().lower()
+    if choice == 'i':
+        # read from keyboard
+        pattern = input().strip()
+        text = input().strip()
+    elif choice == 'f':
+        # read from file
+        filename = input().strip()
+        try:
             with open(filename, 'r') as f:
                 pattern = f.readline().strip()
                 text = f.readline().strip()
-        elif input_type == 'I':
-            pattern = input().strip()
-            text = input().strip()
-        else:
-            return None
-
-        # return both lines in one return
-        return pattern, text
+        except FileNotFoundError:
+            print(f"Error: file '{filename}' not found", file=sys.stderr)
+            sys.exit(1)
+        except Exception as e:
+            print(f"Error: could not read file '{filename}': {e}", file=sys.stderr)
+            sys.exit(1)
+    else:
+        print(f"Error: invalid input choice '{choice}'", file=sys.stderr)
+        sys.exit(1)
+    return pattern, text
 
     except EOFError:
         return None
