@@ -3,23 +3,27 @@
 import sys
 
 def read_input():
-    # read input choice from user
-    input_choice = input().strip().lower()
-    if input_choice == 'i':
-        # read input from keyboard
-        pattern = input().strip()
-        text = input().strip()
-    elif input_choice == 'f':
-        # read input from file
-        filename = input().strip()
-        with open(filename, 'r') as f:
-            pattern = f.readline().strip()
-            text = f.readline().strip()
-    else:
-        # invalid input choice
-        print("Invalid input choice")
-        sys.exit(1)
-    return pattern, text
+    try:
+        # this function needs to acquire input both from keyboard and file
+        # as before, use capital i (input from keyboard) and capital f (input from file) to choose which input type will follow
+
+        input_type = input().strip()
+        if input_type == 'F':
+            filename = input().strip()
+            with open(filename, 'r') as f:
+                pattern = f.readline().strip()
+                text = f.readline().strip()
+        elif input_type == 'I':
+            pattern = input().strip()
+            text = input().strip()
+        else:
+            return None
+
+        # return both lines in one return
+        return pattern, text
+
+    except EOFError:
+        return None
 
 def print_occurrences(output):
     print(' '.join(map(str, output)))
@@ -41,5 +45,8 @@ def get_occurrences(pattern, text):
 
 
 if __name__ == '__main__':
-    print_occurrences(get_occurrences(*read_input()))
-
+    input_data = read_input()
+    if input_data is None:
+        print('Error: could not read input')
+    else:
+        print_occurrences(get_occurrences(*input_data))
