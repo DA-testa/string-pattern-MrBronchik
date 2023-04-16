@@ -7,9 +7,9 @@ def read_input():
         pattern = input().strip()
         text = input().strip()
     elif t_input == "F":
-        filename = input().strip()
+        filename = 'tests/06'
         try:
-            with open(os.path.join('tests', filename), 'r') as f:
+            with open(filename) as file:
                 pattern = f.readline().strip()
                 text = f.readline().strip()
         except FileNotFoundError:
