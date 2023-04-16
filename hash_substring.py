@@ -1,15 +1,24 @@
 # python3
 
+import sys
+
 def read_input():
-    choice = input().strip()
-    if choice == 'I':
+    # read input choice from user
+    input_choice = input().strip().lower()
+    if input_choice == 'i':
+        # read input from keyboard
         pattern = input().strip()
         text = input().strip()
-    elif choice == 'F':
+    elif input_choice == 'f':
+        # read input from file
         filename = input().strip()
         with open(filename, 'r') as f:
             pattern = f.readline().strip()
             text = f.readline().strip()
+    else:
+        # invalid input choice
+        print("Invalid input choice")
+        sys.exit(1)
     return pattern, text
 
 def print_occurrences(output):
