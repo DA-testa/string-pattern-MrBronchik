@@ -1,3 +1,6 @@
+#python3
+#Aleksandrs Semjonovs 221RDB156
+
 import os
 import sys
 
