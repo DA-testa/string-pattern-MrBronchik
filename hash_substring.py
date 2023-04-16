@@ -1,4 +1,4 @@
-import sys
+import os
 
 def read_input():
     choice = input().strip().lower()
@@ -7,16 +7,10 @@ def read_input():
         text = input().strip()
     elif choice == 'f':
         filename = input().strip()
-        try:
-            with open(filename, 'r') as f:
-                pattern = f.readline().strip()
-                text = f.readline().strip()
-        except FileNotFoundError:
-            print('Error: file not found', file=sys.stderr)
-            sys.exit(1)
-        except Exception as e:
-            print(f'Error: could not read file: {e}', file=sys.stderr)
-            sys.exit(1)
+        filepath = os.path.join(os.path.abspath('tests'), filename)
+        with open(filepath, 'r') as f:
+            pattern = f.readline().strip()
+            text = f.readline().strip()
     else:
         print('Error: invalid input choice', file=sys.stderr)
         sys.exit(1)
