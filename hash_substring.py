@@ -2,18 +2,28 @@ import sys
 
 def read_input():
     # read the input choice
+    print("Enter input choice (i for keyboard input, f for file input):")
     choice = input().strip().lower()
+    print(f"Input choice: {choice}")
     if choice == 'i':
         # read from keyboard
+        print("Enter pattern:")
         pattern = input().strip()
+        print(f"Pattern: {pattern}")
+        print("Enter text:")
         text = input().strip()
+        print(f"Text: {text}")
     elif choice == 'f':
         # read from file
+        print("Enter filename:")
         filename = input().strip()
+        print(f"Filename: {filename}")
         try:
             with open(filename, 'r') as f:
                 pattern = f.readline().strip()
                 text = f.readline().strip()
+                print(f"Pattern: {pattern}")
+                print(f"Text: {text}")
         except FileNotFoundError:
             print(f"Error: file '{filename}' not found", file=sys.stderr)
             sys.exit(1)
