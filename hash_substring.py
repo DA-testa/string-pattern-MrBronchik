@@ -12,10 +12,17 @@ def read_input():
         filename = input().strip()
         try:
             with open(os.path.join('tests', filename), 'r') as f:
-                pattern = f.readline().strip()
-                text = f.readline().strip()
+                # check if the file has at least two lines
+                lines = [line.strip() for line in f.readlines()]
+                if len(lines) < 2:
+                    raise ValueError('Input file is not properly formatted')
+                pattern = lines[0]
+                text = lines[1]
         except FileNotFoundError:
             print("Error: file not found")
+            sys.exit(1)
+        except ValueError as e:
+            print(f"Error: {str(e)}")
             sys.exit(1)
     else:
         print("Error: invalid input choice")
