@@ -1,18 +1,24 @@
 import os
 
 def read_input():
+    # read the input choice
     choice = input().strip().lower()
     if choice == 'i':
+        # read from keyboard
         pattern = input().strip()
         text = input().strip()
     elif choice == 'f':
+        # read from file
         filename = input().strip()
-        filepath = os.path.join(os.path.abspath('tests'), filename)
-        with open(filepath, 'r') as f:
-            pattern = f.readline().strip()
-            text = f.readline().strip()
+        try:
+            with open(os.path.join('tests', filename), 'r') as f:
+                pattern = f.readline().strip()
+                text = f.readline().strip()
+        except FileNotFoundError:
+            print("Error: file not found")
+            sys.exit(1)
     else:
-        print('Error: invalid input choice', file=sys.stderr)
+        print("Error: invalid input choice")
         sys.exit(1)
     return pattern, text
 
