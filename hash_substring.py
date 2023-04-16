@@ -1,32 +1,50 @@
-# python3
+#python3
+#Aleksandrs Semjonovs 221RDB156
+
+import os
+import sys
+
 
 def read_input():
-    # this function needs to aquire input both from keyboard and file
-    # as before, use capital i (input from keyboard) and capital f (input from file) to choose which input type will follow
-    
-    
-    # after input type choice
-    # read two lines 
-    # first line is pattern 
-    # second line is text in which to look for pattern 
-    
-    # return both lines in one return
-    
-    # this is the sample return, notice the rstrip function
-    return (input().rstrip(), input().rstrip())
+    t_input = input().strip().upper()
+    if t_input == "I":
+        pattern = input().strip()
+        text = input().strip()
+    elif t_input == "F":
+        filename = 'tests/06'
+        try:
+            with open(filename) as file:
+                pattern = file.readline().strip()
+                text = file.readline().strip()
+        except FileNotFoundError:
+            print("Error: file not found")
+            sys.exit(1)
+    else:
+        print("Error: invalid input choice")
+        sys.exit(1)
+    return t_input, pattern, text
+
 
 def print_occurrences(output):
-    # this function should control output, it doesn't need any return
     print(' '.join(map(str, output)))
 
-def get_occurrences(pattern, text):
-    # this function should find the occurances using Rabin Karp alghoritm 
 
-    # and return an iterable variable
-    return [0]
+def get_occurrences(t_input, pattern, text):
+    n = len(text)
+    m = len(pattern)
+    p = 31
+    p_pow = [pow(p, i) for i in range(m)]
+    pattern_hash = sum([ord(pattern[i]) * p_pow[m - 1 - i] for i in range(m)])
+    text_hash = sum([ord(text[i]) * p_pow[m - 1 - i] for i in range(m)])
+    matches = []
+    for i in range(n - m + 1):
+        if pattern_hash == text_hash:
+            if pattern == text[i:i + m]:
+                matches.append(i)
+        if i < n - m:
+            text_hash = (text_hash - ord(text[i]) * p_pow[m - 1]) * p + ord(text[i + m])
+    return matches
 
 
-# this part launches the functions
 if __name__ == '__main__':
     print_occurrences(get_occurrences(*read_input()))
-
